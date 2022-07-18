@@ -1,0 +1,9 @@
+mutation CreatePost ($content: String!, $publishedAt: DateTime!, $authorId: ID!) {
+    createPost(data: {
+        content: $content,
+        publicationTime: $publishedAt,
+        author: {connect: {id: $authorId}}
+    }) {
+        id
+    }
+}

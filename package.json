@@ -1,0 +1,46 @@
+{
+  "name": "social-media-feed",
+  "private": true,
+  "version": "0.0.0",
+  "homepage": "https://juniorsergio.github.io/social-media-feed",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "codegen": "graphql-codegen"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "date-fns": "^2.28.0",
+    "get-all-files": "^4.1.0",
+    "glob": "^8.0.3",
+    "graphql": "^16.5.0",
+    "interweave": "^13.0.0",
+    "js-cookie": "^3.0.1",
+    "list-react-files": "^0.2.0",
+    "phosphor-react": "^1.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.15.1",
+    "styled-components": "^5.3.5",
+    "webpack": "^5.73.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.8.1",
+    "@graphql-codegen/typescript": "^2.7.1",
+    "@graphql-codegen/typescript-operations": "^2.5.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.1",
+    "@types/glob": "^7.2.0",
+    "@types/js-cookie": "^3.0.2",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-modal": "^3.13.1",
+    "@types/styled-components": "^5.1.25",
+    "@types/webpack-env": "^1.17.0",
+    "@vitejs/plugin-react": "^2.0.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.0"
+  }
+}

@@ -1,0 +1,5 @@
+mutation DeletePostById ($id: ID) {
+  deletePost(where: {id: $id}) {
+    id
+  }
+}

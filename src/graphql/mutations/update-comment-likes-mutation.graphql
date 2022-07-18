@@ -1,0 +1,5 @@
+mutation UpdateCommentLikes ($likes: Int, $id: ID) {
+  updateComment(data: {likes: $likes}, where: {id: $id}) {
+    id
+  }
+}
