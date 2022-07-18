@@ -1,5 +1,0 @@
-mutation DeleteCommentById ($id: ID) {
-  deleteComment(where: {id: $id}) {
-    id
-  }
-}

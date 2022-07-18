@@ -1,7 +1,0 @@
-query GetUserById ($id: ID) {
-  userProfile(where: {id: $id}) {
-    name
-    avatar
-    role
-  }
-}

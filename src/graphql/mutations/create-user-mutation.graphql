@@ -1,9 +1,0 @@
-mutation CreateUser ($name: String!, $role: String!, $avatar: String!) {
-    createUserProfile(data: {
-        name: $name,
-        role: $role,
-        avatar: $avatar
-    }) {
-        id
-    }
-}
