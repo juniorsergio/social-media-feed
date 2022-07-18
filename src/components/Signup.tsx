@@ -75,7 +75,7 @@ export function Signup(){
                         <Avatar
                             key={image}
                             onClick={() => handleAvatarSelection(image)}
-                            src={`src/assets/avatars/${image}.svg`}
+                            src={image}
                             hasBorder={image === avatar}
                         />
                     ))}

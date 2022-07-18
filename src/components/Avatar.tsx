@@ -5,11 +5,15 @@ interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
     hasBorder?: boolean
 }
 
+const modules = import.meta.glob('../assets/avatars/*.svg', { import: 'default', eager: true })
+
 export function Avatar({ hasBorder = true, ...props }: AvatarProps) {
+    const path = `../assets/avatars/${props.src}.svg`
+    
     return (
         <Container
             className={hasBorder ? 'withBorder' : ''}
-            src={props.src}
+            src={String(modules[path])}
             onClick={props.onClick}
         />
     )

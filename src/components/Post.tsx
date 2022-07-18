@@ -112,7 +112,7 @@ export function Post({ postId, onDeletePost }: PostProps) {
             <header>
                 {post.author && (                   
                     <div className='author'>
-                        <Avatar src={`src/assets/avatars/${post.author.avatar}.svg`} />
+                        <Avatar src={post.author.avatar} />
                         <div className='authorInfo'>
                             <strong>{post.author.name}</strong>
                             <span>{post.author.role}</span>

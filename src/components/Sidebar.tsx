@@ -6,6 +6,8 @@ import { Container } from '../styles/Sidebar'
 import { useGetUserByIdQuery } from '../graphql/generated'
 import { useCurrentUser } from '../hooks/useCurrentUser'
 
+const modules = import.meta.glob('../assets/covers/*.svg', { import: 'default', eager: true })
+
 export function Sidebar() {
     const { currentUser } = useCurrentUser()
     
@@ -22,13 +24,15 @@ export function Sidebar() {
             </div>
         )
     }
+
+    const path = `../assets/covers/${data.userProfile.avatar}.svg`
     
     return (
         <Container>
-            <img src={`src/assets/covers/${data.userProfile.avatar}.svg`} />
+            <img src={String(modules[path])} />
 
             <div className='profile'>
-                <Avatar src={`src/assets/avatars/${data.userProfile.avatar}.svg`} />
+                <Avatar src={data.userProfile.avatar} />
                 <strong>{data.userProfile.name}</strong>
                 <span>{data.userProfile.role}</span>
             </div>

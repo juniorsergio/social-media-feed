@@ -89,7 +89,7 @@ export function Comment ({ commentId, onDeleteComment }: CommentProps) {
 
     return (
         <Container>
-            <Avatar hasBorder={false} src={`src/assets/avatars/${comment.author?.avatar}.svg`} />
+            <Avatar hasBorder={false} src={comment.author?.avatar} />
 
             <CommentBox>
                 <CommentContent>
