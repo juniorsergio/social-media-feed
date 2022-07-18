@@ -8,14 +8,14 @@ import { useDeleteCommentByIdMutation, useGetCommentByIdQuery, useUpdateCommentL
 
 import { Container, CommentBox, CommentContent } from '../styles/Comment'
 import { useCurrentUser } from '../hooks/useCurrentUser'
-import { Author } from './Post'
+import { User } from './Post'
 
 interface Comment {
     id: string,
     content: string,
     publicationTime: Date,
     likes: number
-    author?: Author | null,
+    author?: User | null,
     post?: {
         id: string
     } | null
@@ -45,7 +45,7 @@ export function Comment ({ commentId, onDeleteComment }: CommentProps) {
         }
     })
 
-    if (loading) {
+    if (loading || !comment.author || !comment.post) {
         return (
             <div>
                 <p>Carregando...</p>
@@ -53,7 +53,7 @@ export function Comment ({ commentId, onDeleteComment }: CommentProps) {
         )
     }
 
-    const hasPermissionToDelete = (comment.author?.id === currentUser || comment.post?.id === currentUser)
+    const hasPermissionToDelete = (comment.author.id === currentUser || comment.post.id === currentUser)
     const publishedAt = new Date(comment.publicationTime)
 
     const publishedDateFormated = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
@@ -89,13 +89,13 @@ export function Comment ({ commentId, onDeleteComment }: CommentProps) {
 
     return (
         <Container>
-            <Avatar hasBorder={false} src={comment.author?.avatar} />
+            <Avatar hasBorder={false} src={comment.author.avatar} />
 
             <CommentBox>
                 <CommentContent>
                     <header>
                         <div className='authorAndTime'>
-                            <strong title={comment.author?.role}>{comment.author?.name}</strong>
+                            <strong title={comment.author.role}>{comment.author.name}</strong>
                             <time title={publishedDateFormated} dateTime={publishedAt.toISOString()}>
                                 Cerca de {publishedDateRelativeToNow} atrás
                             </time>

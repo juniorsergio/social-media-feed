@@ -43,7 +43,9 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
         }
     }
 
-    async function handleUpdateUser() {
+    async function handleUpdateUser(event: FormEvent) {
+        event.preventDefault()
+        
         await updateUser({
             variables: {
                 "id": currentUser,
@@ -51,7 +53,12 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
                 role,
                 avatar
             }
-        }).then(() => window.location.reload())
+        })
+
+        if (onRequestClose){
+            onRequestClose()
+            window.location.reload()
+        }
     }
 
     function handleAvatarSelection(selectedAvatar: string){
@@ -76,7 +83,7 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
     return (
         <Container
             className={type}
-            onSubmit={onRequestClose}
+            onSubmit={isSignup ? handleCreateNewUser : handleUpdateUser}
         >
             <h2>{title}</h2>
 
@@ -112,10 +119,7 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
                 </div>          
             </div>
 
-            <button
-                type="submit"
-                onClick={isSignup ? handleCreateNewUser : handleUpdateUser}
-            >
+            <button type="submit">
                 {buttonText}
             </button>
         </Container>
