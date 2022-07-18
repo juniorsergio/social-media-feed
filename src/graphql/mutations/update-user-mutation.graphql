@@ -1,0 +1,9 @@
+mutation UpdateUserProfile ($name: String!, $role: String!, $avatar: String!, $id: ID) {
+    updateUserProfile(data: {
+        name: $name,
+        role: $role,
+        avatar: $avatar
+    }, where: {id: $id}) {
+        id
+    }
+}

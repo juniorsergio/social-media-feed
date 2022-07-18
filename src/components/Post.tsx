@@ -15,7 +15,7 @@ interface Comments {
     id: string
 }
 
-export interface Author {
+export interface User {
     id: string,
     name: string,
     role: string,
@@ -26,7 +26,7 @@ interface Post {
     id: string,
     content: string,
     publicationTime: Date,
-    author?: Author | null
+    author?: User | null
 }
 
 interface PostProps {  

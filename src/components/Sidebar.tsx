@@ -1,15 +1,20 @@
 import { PencilLine } from 'phosphor-react'
+import { useCallback, useState } from 'react'
+import ReactModal from 'react-modal'
 
-import { Avatar } from './Avatar'
-
-import { Container } from '../styles/Sidebar'
 import { useGetUserByIdQuery } from '../graphql/generated'
 import { useCurrentUser } from '../hooks/useCurrentUser'
+
+import { Avatar } from './Avatar'
+import { UserProfileInput } from './UserProfileInput'
+
+import { Container } from '../styles/Sidebar'
 
 const modules = import.meta.glob('../assets/covers/*.svg', { import: 'default', eager: true })
 
 export function Sidebar() {
     const { currentUser } = useCurrentUser()
+    const [ isUpdateUserModalOpen, setIsUpdateUserModalOpen ] = useState(false)
     
     const { data } = useGetUserByIdQuery({
         variables: {
@@ -26,6 +31,14 @@ export function Sidebar() {
     }
 
     const path = `../assets/covers/${data.userProfile.avatar}.svg`
+
+    function handleOpenUpdateUserModal(){
+        setIsUpdateUserModalOpen(true)
+    }
+
+    function handleCloseUpdateUserModal(){
+        setIsUpdateUserModalOpen(false)
+    }
     
     return (
         <Container>
@@ -38,11 +51,24 @@ export function Sidebar() {
             </div>
 
             <footer>
-                <a href="#">
+                <button onClick={handleOpenUpdateUserModal}>
                     <PencilLine size={20} />
                     Editar seu perfil
-                </a>
+                </button>
             </footer>
+
+            <ReactModal
+                isOpen={isUpdateUserModalOpen}
+                onRequestClose={handleCloseUpdateUserModal}
+                overlayClassName='react-modal-overlay'
+                className='react-modal-content'
+            >
+                <UserProfileInput
+                    type='update'
+                    userInfo={data.userProfile}
+                    onRequestClose={handleCloseUpdateUserModal}
+                />
+            </ReactModal >
         </Container>
     )
 }

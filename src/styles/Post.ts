@@ -13,7 +13,7 @@ export const Container = styled.article`
         border-bottom: 1px solid var(--gray-600);
     }
 
-    header {
+    & > header {
         display: flex;
         align-items: center;
 

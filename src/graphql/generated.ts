@@ -4886,6 +4886,16 @@ export type UpdateCommentLikesMutationVariables = Exact<{
 
 export type UpdateCommentLikesMutation = { __typename?: 'Mutation', updateComment?: { __typename?: 'Comment', id: string } | null };
 
+export type UpdateUserProfileMutationVariables = Exact<{
+  name: Scalars['String'];
+  role: Scalars['String'];
+  avatar: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
+}>;
+
+
+export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUserProfile?: { __typename?: 'UserProfile', id: string } | null };
+
 export type GetCommentByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ID']>;
 }>;
@@ -4910,7 +4920,7 @@ export type GetUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByIdQuery = { __typename?: 'Query', userProfile?: { __typename?: 'UserProfile', name: string, avatar: string, role: string } | null };
+export type GetUserByIdQuery = { __typename?: 'Query', userProfile?: { __typename?: 'UserProfile', id: string, name: string, avatar: string, role: string } | null };
 
 
 export const CreateCommentDocument = gql`
@@ -5123,6 +5133,45 @@ export function useUpdateCommentLikesMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateCommentLikesMutationHookResult = ReturnType<typeof useUpdateCommentLikesMutation>;
 export type UpdateCommentLikesMutationResult = Apollo.MutationResult<UpdateCommentLikesMutation>;
 export type UpdateCommentLikesMutationOptions = Apollo.BaseMutationOptions<UpdateCommentLikesMutation, UpdateCommentLikesMutationVariables>;
+export const UpdateUserProfileDocument = gql`
+    mutation UpdateUserProfile($name: String!, $role: String!, $avatar: String!, $id: ID) {
+  updateUserProfile(
+    data: {name: $name, role: $role, avatar: $avatar}
+    where: {id: $id}
+  ) {
+    id
+  }
+}
+    `;
+export type UpdateUserProfileMutationFn = Apollo.MutationFunction<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
+
+/**
+ * __useUpdateUserProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserProfileMutation, { data, loading, error }] = useUpdateUserProfileMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      role: // value for 'role'
+ *      avatar: // value for 'avatar'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUpdateUserProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>(UpdateUserProfileDocument, options);
+      }
+export type UpdateUserProfileMutationHookResult = ReturnType<typeof useUpdateUserProfileMutation>;
+export type UpdateUserProfileMutationResult = Apollo.MutationResult<UpdateUserProfileMutation>;
+export type UpdateUserProfileMutationOptions = Apollo.BaseMutationOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
 export const GetCommentByIdDocument = gql`
     query GetCommentById($id: ID) {
   comment(where: {id: $id}) {
@@ -5253,6 +5302,7 @@ export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQuer
 export const GetUserByIdDocument = gql`
     query GetUserById($id: ID) {
   userProfile(where: {id: $id}) {
+    id
     name
     avatar
     role

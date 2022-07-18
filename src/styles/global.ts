@@ -34,4 +34,23 @@ export const GlobalStyles = createGlobalStyle`
         font-weight: 400;
         font-size: 1rem;
     }
+
+    .react-modal-overlay {
+        background: #2020249F;
+
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .react-modal-content {
+        margin: 0 auto;
+        width: 500px;
+    }
 `

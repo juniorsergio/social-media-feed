@@ -3,7 +3,7 @@ import { useCurrentUser } from "./hooks/useCurrentUser";
 
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
-import { Signup } from "./components/Signup";
+import { UserProfileInput } from "./components/UserProfileInput";
 import { Feed } from "./components/Feed";
 
 import { GlobalStyles } from "./styles/global";
@@ -15,7 +15,15 @@ export function App() {
 	if (!currentUser) {
 		return (
 			<div>
-				<Signup />
+				<UserProfileInput
+					type='signup'
+					userInfo={{
+						id: '',
+						name: '',
+						role: '',
+						avatar: ''
+					}}
+				/>
 				<GlobalStyles />
 			</div>
 		)

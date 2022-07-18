@@ -1,18 +1,31 @@
 import { ChangeEvent, FormEvent, useState } from "react"
-import { useCreateUserMutation } from "../graphql/generated"
+import { useCreateUserMutation, useUpdateUserProfileMutation } from "../graphql/generated"
 import { useCurrentUser } from "../hooks/useCurrentUser"
-import { Container } from "../styles/Signup"
+import { Container } from "../styles/UserProfileInput"
 import { Avatar } from "./Avatar"
+import { User } from "./Post"
 
 const images = ['intj', 'entj', 'intp', 'entp', 'istp', 'estp', 'isfp', 'esfp']
 
-export function Signup(){
-    const [ name, setName ] = useState('')
-    const [ role, setRole ] = useState('')
-    const [ avatar, setAvatar ] = useState('intj')
-    const { updateCurrentUser } = useCurrentUser()
+interface UserProfileInputProps {
+    type: string,
+    userInfo: User,
+    onRequestClose?: () => void
+}
+
+export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfileInputProps){
+    const { currentUser, updateCurrentUser } = useCurrentUser()
+
+    const [ name, setName ] = useState(userInfo.name)
+    const [ role, setRole ] = useState(userInfo.role)
+    const [ avatar, setAvatar ] = useState(userInfo.avatar)
+
+    const isSignup = (type === 'signup')
+    const title = isSignup ? 'Criar Cadastro' : 'Atualizar perfil'
+    const buttonText = isSignup ? 'Cadastrar' : 'Atualizar'
 
     const [ createUser ] = useCreateUserMutation()
+    const [ updateUser ] = useUpdateUserProfileMutation()
     
     async function handleCreateNewUser(event: FormEvent) {
         event.preventDefault()
@@ -30,6 +43,17 @@ export function Signup(){
         }
     }
 
+    async function handleUpdateUser() {
+        await updateUser({
+            variables: {
+                "id": currentUser,
+                name,
+                role,
+                avatar
+            }
+        }).then(() => window.location.reload())
+    }
+
     function handleAvatarSelection(selectedAvatar: string){
         setAvatar(selectedAvatar)
     }
@@ -41,6 +65,7 @@ export function Signup(){
     function handleNameChange(event: ChangeEvent<HTMLInputElement>){
         event.target.setCustomValidity('')
         setName(event.target.value)
+        console.log(event.target.value)
     }
 
     function handleRoleChange(event: ChangeEvent<HTMLInputElement>){
@@ -49,8 +74,11 @@ export function Signup(){
     }
 
     return (
-        <Container onSubmit={handleCreateNewUser}>
-            <h2>Criar Cadastro</h2>
+        <Container
+            className={type}
+            onSubmit={onRequestClose}
+        >
+            <h2>{title}</h2>
 
             <input
                 required              
@@ -58,6 +86,7 @@ export function Signup(){
                 onChange={handleNameChange}
                 type="text"
                 placeholder="Nome"
+                defaultValue={isSignup ? '' : userInfo.name}
             />
 
             <input
@@ -66,6 +95,7 @@ export function Signup(){
                 onChange={handleRoleChange}
                 type="text"
                 placeholder="Especialidade"
+                defaultValue={isSignup ? '' : userInfo.role}
             />
 
             <div className="avatarSelector">
@@ -82,7 +112,12 @@ export function Signup(){
                 </div>          
             </div>
 
-            <button type="submit">Cadastrar</button>
+            <button
+                type="submit"
+                onClick={isSignup ? handleCreateNewUser : handleUpdateUser}
+            >
+                {buttonText}
+            </button>
         </Container>
     )
 }

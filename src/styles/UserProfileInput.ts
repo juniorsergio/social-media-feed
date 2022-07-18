@@ -61,7 +61,7 @@ export const Container = styled.form`
         }
     }
     
-    button[type=submit] {
+    button {
         padding: 1rem 1.5rem;
         margin-top: 1rem;
 

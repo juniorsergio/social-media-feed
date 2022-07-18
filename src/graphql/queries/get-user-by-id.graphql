@@ -1,5 +1,6 @@
 query GetUserById ($id: ID) {
   userProfile(where: {id: $id}) {
+    id
     name
     avatar
     role
