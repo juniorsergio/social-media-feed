@@ -86,7 +86,7 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
             className={type}
             onSubmit={isSignup ? handleCreateNewUser : handleUpdateUser}
         >
-            <button type='button' onClick={onRequestClose} className='react-modal-close'>
+            <button type='button' hidden={isSignup} onClick={onRequestClose} className='react-modal-close'>
                 <img src={closeImg} alt="Fechar modal" />
             </button>
 
