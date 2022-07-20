@@ -1,4 +1,3 @@
-
 import { useCurrentUser } from "./hooks/useCurrentUser";
 
 import { Header } from "./components/Header";

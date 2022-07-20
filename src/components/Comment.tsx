@@ -9,6 +9,7 @@ import { useDeleteCommentByIdMutation, useGetCommentByIdQuery, useUpdateCommentL
 import { Container, CommentBox, CommentContent } from '../styles/Comment'
 import { useCurrentUser } from '../hooks/useCurrentUser'
 import { User } from './Post'
+import ReactLoading from 'react-loading'
 
 interface Comment {
     id: string,
@@ -47,9 +48,12 @@ export function Comment ({ commentId, onDeleteComment }: CommentProps) {
 
     if (loading || !comment.author || !comment.post) {
         return (
-            <div>
-                <p>Carregando...</p>
-            </div>
+            <ReactLoading
+                type="balls"
+                color="var(--green-500)" 
+                height={100}
+                width={50}
+            />
         )
     }
 
