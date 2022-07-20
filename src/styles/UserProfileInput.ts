@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.form`
+    animation: fadein-scale 0.5s;
+    
     margin: 10vh auto;
     padding: 2rem;
 
@@ -11,12 +13,35 @@ export const Container = styled.form`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 
     width: 500px;
     height: 80vh;
+    
+    .react-modal-close {
+        position: absolute;
+        text-align: right;
+        width: 400px;
+
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+
+        transition: filter 0.2s;
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
 
     @media (max-width: 768px) {
-        width: auto;
+        width: 98vw;
+        height: auto;
+        margin: 20vh auto;
+
+        .react-modal-close {
+            width: calc(98vw - (98vw * 0.2));
+        }
     }
 
     input {
@@ -61,9 +86,8 @@ export const Container = styled.form`
         }
     }
     
-    button {
+    button[type='submit'] {
         padding: 1rem 1.5rem;
-        margin-top: 1rem;
 
         border-radius: 8px;
         border: 0;

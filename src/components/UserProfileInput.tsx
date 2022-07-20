@@ -5,6 +5,7 @@ import { Container } from "../styles/UserProfileInput"
 import { Avatar } from "./Avatar"
 import { User } from "./Post"
 
+import closeImg from '../assets/close.svg'
 const images = ['intj', 'entj', 'intp', 'entp', 'istp', 'estp', 'isfp', 'esfp']
 
 interface UserProfileInputProps {
@@ -85,6 +86,10 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
             className={type}
             onSubmit={isSignup ? handleCreateNewUser : handleUpdateUser}
         >
+            <button type='button' onClick={onRequestClose} className='react-modal-close'>
+                <img src={closeImg} alt="Fechar modal" />
+            </button>
+
             <h2>{title}</h2>
 
             <input

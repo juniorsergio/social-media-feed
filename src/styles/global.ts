@@ -23,6 +23,17 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
     }
 
+    @keyframes fadein-scale {
+        from {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
     body {
         background: black;//var(--gray-900);
         color: var(--gray-300);
@@ -51,6 +62,6 @@ export const GlobalStyles = createGlobalStyle`
     
     .react-modal-content {
         margin: 0 auto;
-        width: 500px;
+        width: auto;
     }
 `

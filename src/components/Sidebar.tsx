@@ -1,5 +1,5 @@
 import { PencilLine } from 'phosphor-react'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import ReactModal from 'react-modal'
 
 import { useGetUserByIdQuery } from '../graphql/generated'
@@ -62,6 +62,7 @@ export function Sidebar() {
                 onRequestClose={handleCloseUpdateUserModal}
                 overlayClassName='react-modal-overlay'
                 className='react-modal-content'
+                ariaHideApp={false}
             >
                 <UserProfileInput
                     type='update'

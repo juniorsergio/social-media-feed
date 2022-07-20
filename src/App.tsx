@@ -21,7 +21,7 @@ export function App() {
 						id: '',
 						name: '',
 						role: '',
-						avatar: ''
+						avatar: 'intj'
 					}}
 				/>
 				<GlobalStyles />

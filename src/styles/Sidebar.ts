@@ -35,6 +35,8 @@ export const Container = styled.aside`
         border-top: 1px solid var(--gray-600);
         margin-top: 1.5rem;
         padding: 1.5rem 2rem 2rem;
+        display: flex;
+        justify-content: center;
 
         button {
             display: flex;
