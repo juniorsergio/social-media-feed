@@ -10,6 +10,7 @@ import { useCreateCommentMutation, useDeletePostByIdMutation, useGetPostByIdQuer
 import { useCurrentUser } from '../hooks/useCurrentUser'
 import { TextArea } from './TextArea'
 import { Trash } from 'phosphor-react'
+import ReactLoading from 'react-loading'
 
 interface Comments {
     id: string
@@ -55,9 +56,12 @@ export function Post({ postId, onDeletePost }: PostProps) {
 
     if (loading) {
         return (
-            <div>
-                <p>Carregando...</p>
-            </div>
+            <ReactLoading
+                type="balls"
+                color="var(--green-500)" 
+                height={100}
+                width={50}
+            />
         )
     }
 

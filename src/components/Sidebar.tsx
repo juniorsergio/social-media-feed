@@ -9,6 +9,7 @@ import { Avatar } from './Avatar'
 import { UserProfileInput } from './UserProfileInput'
 
 import { Container } from '../styles/Sidebar'
+import ReactLoading from 'react-loading'
 
 const modules = import.meta.glob('../assets/covers/*.svg', { import: 'default', eager: true })
 
@@ -24,9 +25,12 @@ export function Sidebar() {
 
     if (!data || !data.userProfile) {
         return (
-            <div>
-                <p>Carregando...</p>
-            </div>
+            <ReactLoading
+                type="balls"
+                color="var(--green-500)" 
+                height={100}
+                width={50}
+            />
         )
     }
 

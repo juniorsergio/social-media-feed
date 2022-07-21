@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from "react"
+import ReactLoading from "react-loading"
 import { useCreatePostMutation, useGetPostsQuery } from "../graphql/generated"
 import { useCurrentUser } from "../hooks/useCurrentUser"
 import { Post } from "./Post"
@@ -22,9 +23,12 @@ export function Feed(){
 
     if (loading) {
         return (
-            <div>
-                <p>Carregando...</p>
-            </div>
+            <ReactLoading
+                type="balls"
+                color="var(--green-500)" 
+                height={100}
+                width={50}
+            />
         )
     }
 
