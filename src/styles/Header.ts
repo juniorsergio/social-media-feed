@@ -4,20 +4,21 @@ export const Container = styled.header`
     background: var(--gray-800);
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 1.25rem;
-    padding: 1.25rem 0;
+    padding: 1.25rem;
 
     a {
         text-decoration: none;
         color: var(--green-300);
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
 
         &:hover {
-            color: var(--green-500);
+            filter: opacity(0.8);
         }
-    }
 
-    img {
-        height: 2rem;
+        img {
+            height: 2rem;
+        }
     }
 `
