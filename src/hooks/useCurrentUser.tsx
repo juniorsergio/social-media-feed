@@ -47,7 +47,11 @@ export function CurrentUserProvider({ children }: CurrentUserProviderProps) {
 
     useEffect(() => {
         if (userCookie !== ''){
+            setLoading(true)
             getUserData(userCookie)
+        }
+        else{
+            setLoading(false)
         }
     }, [])
 
