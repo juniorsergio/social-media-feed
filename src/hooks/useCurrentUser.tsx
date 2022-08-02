@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { useGetUserByIdLazyQuery, useGetUserByIdQuery } from "../graphql/generated";
+import { useGetUserByIdLazyQuery } from "../graphql/generated";
 
 interface CurrentUserProviderProps {
     children: ReactNode

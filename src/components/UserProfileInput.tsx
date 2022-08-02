@@ -1,9 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { useCreateUserMutation, useUpdateUserProfileMutation } from "../graphql/generated"
-import { useCurrentUser } from "../hooks/useCurrentUser"
-import { Container } from "../styles/UserProfileInput"
+
+import { useCurrentUser, User } from "../hooks/useCurrentUser"
 import { Avatar } from "./Avatar"
-import { User } from "./Post"
+
+import { Container } from "../styles/UserProfileInput"
 
 import closeImg from '../assets/close.svg'
 const images = ['intj', 'entj', 'intp', 'entp', 'istp', 'estp', 'isfp', 'esfp']
