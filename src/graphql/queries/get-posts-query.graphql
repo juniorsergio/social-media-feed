@@ -1,5 +1,16 @@
 query GetPosts {
   posts(orderBy: publishedAt_DESC) {
     id
+    content
+    publicationTime
+    author {
+      id
+      avatar
+      name
+      role
+    }
+    comments(orderBy: publishedAt_DESC) {
+      id
+    }
   }
 }

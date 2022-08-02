@@ -31,17 +31,17 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
     async function handleCreateNewUser(event: FormEvent) {
         event.preventDefault()
         
-        const response = await createUser({
+        await createUser({
             variables: {
                 name,
                 role,
                 avatar
+            },
+            onCompleted: (data) => {
+                if (!data || !data.createUserProfile) return             
+                updateCurrentUser(data.createUserProfile.id)
             }
         })
-
-        if (response.data && response.data.createUserProfile){
-            updateCurrentUser(response.data.createUserProfile.id)
-        }
     }
 
     async function handleUpdateUser(event: FormEvent) {
@@ -49,7 +49,7 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
         
         await updateUser({
             variables: {
-                "id": currentUser,
+                "id": currentUser.id,
                 name,
                 role,
                 avatar
@@ -73,7 +73,6 @@ export function UserProfileInput({ type, userInfo, onRequestClose }: UserProfile
     function handleNameChange(event: ChangeEvent<HTMLInputElement>){
         event.target.setCustomValidity('')
         setName(event.target.value)
-        console.log(event.target.value)
     }
 
     function handleRoleChange(event: ChangeEvent<HTMLInputElement>){

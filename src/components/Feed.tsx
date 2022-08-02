@@ -1,71 +1,58 @@
-import { FormEvent, useEffect, useState } from "react"
-import ReactLoading from "react-loading"
-import { useCreatePostMutation, useGetPostsQuery } from "../graphql/generated"
+import { FormEvent } from "react"
+
+import { useCreatePostMutation } from "../graphql/generated"
 import { useCurrentUser } from "../hooks/useCurrentUser"
+import { useFeed } from "../hooks/useFeed"
+
 import { Post } from "./Post"
 import { TextArea } from "./TextArea"
 
-interface Posts {
-    id: string
-}
-
 export function Feed(){
 	const { currentUser } = useCurrentUser()
-    const [ posts, setPosts ] = useState({} as Posts[])
+    const { feed, updateFeed } = useFeed()
 
     const [ writeNewPost ] = useCreatePostMutation()
-	const { loading } = useGetPostsQuery({
-        onCompleted: (data) => {
-            if (!data) return
-            setPosts(data.posts)
-        }
-    })
 
-    if (loading) {
-        return (
-            <ReactLoading
-                type="balls"
-                color="var(--green-500)" 
-                height={100}
-                width={50}
-            />
-        )
-    }
-
-    async function handleCreateNewPost(event: FormEvent, newPostContent: string){       
+    async function handleCreateNewPost(event: FormEvent, newPostContent: string){
         event.preventDefault()
 
         const response = await writeNewPost({
             variables: {
                 "content": newPostContent,
                 "publishedAt": new Date(),
-                "authorId": currentUser,
+                "authorId": currentUser.id,
             }
         })
 
         if (response.data && response.data.createPost){
-            setPosts([{
-                id: response.data.createPost.id
-            }, ...posts])
+            updateFeed('update', [{
+                id: response.data.createPost.id,
+                content: newPostContent,
+                publicationTime: new Date(),
+                author: currentUser,
+                comments: []
+            }])
         }
-    }
-
-    function deletePost(id: string){
-        const postsWithoutDeletedOne = posts.filter(post => post.id !== id)
-        setPosts(postsWithoutDeletedOne)
     }
 
     return (
         <main>
             <TextArea type={'post'} createNewInputText={handleCreateNewPost} />
             
-            {posts.map((post) => (
-                <Post
-                    key={post.id}
-                    postId={post.id}
-                    onDeletePost={deletePost}
-                />
-            ))}
+            {feed.map((post) => 
+                <>
+                    { post.author && (
+                        <Post
+                            key={post.id}
+                            postId={post.id}
+                            content={post.content}
+                            publicationTime={post.publicationTime}
+                            author={post.author}
+                            comments={post.comments}
+                        />
+                    )}
+                </>
+            )}
         </main>
     )
 }

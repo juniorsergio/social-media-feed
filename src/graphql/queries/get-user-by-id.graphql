@@ -1,4 +1,4 @@
-query GetUserById ($id: ID) {
+query GetUserById ($id: ID!) {
   userProfile(where: {id: $id}) {
     id
     name

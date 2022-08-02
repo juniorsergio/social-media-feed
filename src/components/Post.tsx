@@ -1,72 +1,41 @@
 import { FormEvent, useState } from 'react'
+import { Trash } from 'phosphor-react'
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
+import { useCreateCommentMutation, useDeletePostByIdMutation } from '../graphql/generated'
+import { useCurrentUser, User } from '../hooks/useCurrentUser'
+
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
+import { TextArea } from './TextArea'
 
 import { Container } from '../styles/Post'
-import { useCreateCommentMutation, useDeletePostByIdMutation, useGetPostByIdQuery } from '../graphql/generated'
-import { useCurrentUser } from '../hooks/useCurrentUser'
-import { TextArea } from './TextArea'
-import { Trash } from 'phosphor-react'
-import ReactLoading from 'react-loading'
+import { useFeed } from '../hooks/useFeed'
 
-interface Comments {
+interface Comment {
     id: string
-}
-
-export interface User {
-    id: string,
-    name: string,
-    role: string,
-    avatar: string
-}
-
-interface Post {
-    id: string,
-    content: string,
-    publicationTime: Date,
-    author?: User | null
 }
 
 interface PostProps {  
     postId: string,
-    onDeletePost: (postId: string) => void
+    content: string,
+    publicationTime: Date,
+    author: User,
+    comments: Comment[]
 }
 
-export function Post({ postId, onDeletePost }: PostProps) {
+export function Post({ postId, content, publicationTime, author, comments }: PostProps) {
     const { currentUser } = useCurrentUser()
-    const [ storedComments, setStoredComments ] = useState({} as Comments[])
-    const [ post, setPost ] = useState({} as Post)
+    const { feed, updateFeed } = useFeed()
+
+    const [ storedComments, setStoredComments ] = useState(comments)
 
     const [ writeNewComment ] = useCreateCommentMutation()
     const [ deletePost ] = useDeletePostByIdMutation()
 
-    const { loading } = useGetPostByIdQuery({
-        variables: {
-            'id': postId
-        },
-        onCompleted: (data) => {
-            if (!data || !data.post) return
-            setPost(data.post)
-            setStoredComments(data.post.comments)
-        }
-    })
-
-    if (loading) {
-        return (
-            <ReactLoading
-                type="balls"
-                color="var(--green-500)" 
-                height={100}
-                width={50}
-            />
-        )
-    }
-
-    const hasPermissionToDelete = (post.author?.id === currentUser)
-    const publishedAt = new Date(post.publicationTime)
+    const hasPermissionToDelete = (author?.id === currentUser.id)
+    const publishedAt = new Date(publicationTime)
 
     const publishedDateFormated = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
         locale: ptBR
@@ -84,8 +53,8 @@ export function Post({ postId, onDeletePost }: PostProps) {
             variables: {
                 "content": newComment,
                 "publishedAt": new Date(),
-                "authorId": currentUser,
-                "postId": post.id
+                "authorId": currentUser.id,
+                "postId": postId
             }
         })
 
@@ -102,8 +71,9 @@ export function Post({ postId, onDeletePost }: PostProps) {
                 'id': postId
             }
         })
-        
-        onDeletePost(postId)
+               
+        const postsWithoutDeletedOne = feed.filter(post => post.id !== postId)
+        updateFeed('delete', postsWithoutDeletedOne)
     }
 
     function deleteComment(id: string){
@@ -114,15 +84,13 @@ export function Post({ postId, onDeletePost }: PostProps) {
     return (
         <Container>
             <header>
-                {post.author && (                   
-                    <div className='author'>
-                        <Avatar src={post.author.avatar} />
-                        <div className='authorInfo'>
-                            <strong>{post.author.name}</strong>
-                            <span>{post.author.role}</span>
-                        </div>
+                <div className='author'>
+                    <Avatar src={author.avatar} />
+                    <div className='authorInfo'>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
-                )}
+                </div>
 
                 <time title={publishedDateFormated} dateTime={publishedAt.toISOString()}>
                     Publicado {publishedDateRelativeToNow}
@@ -137,7 +105,7 @@ export function Post({ postId, onDeletePost }: PostProps) {
                 </button>
             </header>
 
-            <p>{post.content}</p>
+            <p>{content}</p>
 
             <TextArea type={'comment'} createNewInputText={handleCreateNewComment} />
 

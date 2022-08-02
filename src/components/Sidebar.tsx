@@ -19,7 +19,7 @@ export function Sidebar() {
     
     const { data } = useGetUserByIdQuery({
         variables: {
-            "id": currentUser
+            "id": currentUser.id
         }
     })
 

@@ -1,19 +1,39 @@
-import { useCurrentUser } from "./hooks/useCurrentUser";
-
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
 import { UserProfileInput } from "./components/UserProfileInput";
 import { Feed } from "./components/Feed";
 
+import { useFeed } from "./hooks/useFeed";
+import { useCurrentUser } from "./hooks/useCurrentUser";
+
 import { GlobalStyles } from "./styles/global";
 import { Container } from "./styles/App";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 export function App() {
-	const { currentUser } = useCurrentUser()
+	const { currentUser, isLoadingUser } = useCurrentUser()
+	const { isLoadingFeed } = useFeed()
 
-	if (!currentUser) {
+	if (isLoadingUser || isLoadingFeed){
 		return (
-			<div>
+			<>
+				<LoadingScreen />
+				<GlobalStyles />
+			</>
+		)
+	}
+
+	return (
+		<>
+			{ currentUser.id ? (
+				<>
+					<Header />
+					<Container>
+						<Sidebar />
+						<Feed />
+					</Container>
+				</>
+			) : (
 				<UserProfileInput
 					type='signup'
 					userInfo={{
@@ -23,21 +43,8 @@ export function App() {
 						avatar: 'intj'
 					}}
 				/>
-				<GlobalStyles />
-			</div>
-		)
-	}
-
-	return (
-		<div>
-			<Header />
-
-			<Container>
-				<Sidebar />
-				<Feed />
-			</Container>
-
-			<GlobalStyles />		
-		</div>
+			)}
+			<GlobalStyles />
+		</>
 	)
 }

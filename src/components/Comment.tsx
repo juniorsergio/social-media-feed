@@ -2,14 +2,15 @@ import { useState } from 'react'
 import { ThumbsUp, Trash } from 'phosphor-react'
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
+import ReactLoading from 'react-loading'
+
+import { useDeleteCommentByIdMutation, useGetCommentByIdQuery, useUpdateCommentLikesMutation } from '../graphql/generated'
+import { useCurrentUser } from '../hooks/useCurrentUser'
+import { User } from '../hooks/useCurrentUser'
 
 import { Avatar } from './Avatar'
-import { useDeleteCommentByIdMutation, useGetCommentByIdQuery, useUpdateCommentLikesMutation } from '../graphql/generated'
 
 import { Container, CommentBox, CommentContent } from '../styles/Comment'
-import { useCurrentUser } from '../hooks/useCurrentUser'
-import { User } from './Post'
-import ReactLoading from 'react-loading'
 
 interface Comment {
     id: string,
@@ -57,7 +58,7 @@ export function Comment ({ commentId, onDeleteComment }: CommentProps) {
         )
     }
 
-    const hasPermissionToDelete = (comment.author.id === currentUser || comment.post.id === currentUser)
+    const hasPermissionToDelete = (comment.author.id === currentUser.id || comment.post.id === currentUser.id)
     const publishedAt = new Date(comment.publicationTime)
 
     const publishedDateFormated = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {

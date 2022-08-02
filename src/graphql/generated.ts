@@ -4913,10 +4913,10 @@ export type GetPostByIdQuery = { __typename?: 'Query', post?: { __typename?: 'Po
 export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', id: string, content: string, publicationTime: any, author?: { __typename?: 'UserProfile', id: string, avatar: string, name: string, role: string } | null, comments: Array<{ __typename?: 'Comment', id: string }> }> };
 
 export type GetUserByIdQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['ID']>;
+  id: Scalars['ID'];
 }>;
 
 
@@ -5269,6 +5269,17 @@ export const GetPostsDocument = gql`
     query GetPosts {
   posts(orderBy: publishedAt_DESC) {
     id
+    content
+    publicationTime
+    author {
+      id
+      avatar
+      name
+      role
+    }
+    comments(orderBy: publishedAt_DESC) {
+      id
+    }
   }
 }
     `;
@@ -5300,7 +5311,7 @@ export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const GetUserByIdDocument = gql`
-    query GetUserById($id: ID) {
+    query GetUserById($id: ID!) {
   userProfile(where: {id: $id}) {
     id
     name
@@ -5326,7 +5337,7 @@ export const GetUserByIdDocument = gql`
  *   },
  * });
  */
-export function useGetUserByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
+export function useGetUserByIdQuery(baseOptions: Apollo.QueryHookOptions<GetUserByIdQuery, GetUserByIdQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(GetUserByIdDocument, options);
       }

@@ -1,11 +1,9 @@
-import reactLogo from '../assets/react.svg'
-import { Container } from '../styles/LoadingScreen'
+import { Container, YinYang } from '../styles/LoadingScreen'
 
 export function LoadingScreen(){
-    return (
+    return (     
         <Container>
-            <img src={reactLogo} alt="React logo" />
-            <p>Bem Vindo(a)!</p>
+            <YinYang />
         </Container>
     )
 }

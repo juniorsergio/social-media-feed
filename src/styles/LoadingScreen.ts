@@ -1,22 +1,53 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    img {
-        height: 6em;
-        padding: 1.5em;
-        will-change: filter;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        &:hover {
-            filter: drop-shadow(0 0 2em #61dafbaa);
-        }
+    height: 100vh;
+
+    animation: fadein 3s;
+`
+const size = '50vmin'
+
+export const YinYang = styled.div`   
+    width: ${size};
+    height: ${size};
+    border-radius: 50%;
+    background: linear-gradient(black 50%, white 0);
+    
+    display: flex;
+    align-items: center;
+
+    animation: rotate 2s linear infinite;
+
+    @keyframes yinyang {
+        to { transform: scale(1.5) }
     }
 
-    @keyframes logo-spin {
-    from {
-        transform: rotate(0deg);
+    @keyframes rotate {
+        to { transform: rotate(1turn) }
     }
-    to {
-        transform: rotate(360deg);
+    
+    &:before, &:after {
+        flex: 1;
+        height: calc(${size}/6);
+        border-radius: 50%;
+        background: black;
+        content: '';
+        border: solid calc(${size}/6) white;
+
+        transform-origin: 0 50%;
+        transform: scale(0.5);
+        animation: yinyang 1s ease-in-out infinite alternate;
     }
+
+    &:after {
+        background: white;
+        border-color: black;
+
+        transform-origin: 100% 50%;
+        animation-delay: -1s;
     }
 `
