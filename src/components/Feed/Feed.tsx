@@ -1,11 +1,11 @@
 import { FormEvent } from "react"
 
-import { useCreatePostMutation } from "../graphql/generated"
-import { useCurrentUser } from "../hooks/useCurrentUser"
-import { useFeed } from "../hooks/useFeed"
+import { useCreatePostMutation } from "../../graphql/generated"
+import { useCurrentUser } from "../../hooks/useCurrentUser"
+import { useFeed } from "../../hooks/useFeed"
 
-import { Post } from "./Post"
-import { TextArea } from "./TextArea"
+import { Post } from "../Post/Post"
+import { TextArea } from "../TextArea/TextArea"
 
 export function Feed(){
 	const { currentUser } = useCurrentUser()

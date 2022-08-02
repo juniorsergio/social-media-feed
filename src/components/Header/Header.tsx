@@ -1,6 +1,6 @@
 import { Link } from 'phosphor-react'
-import igniteLogo from '../assets/ignite-logo.svg'
-import { Container } from '../styles/Header'
+import igniteLogo from '../../assets/ignite-logo.svg'
+import { Container } from './styles'
 
 export function Header(){
     return (

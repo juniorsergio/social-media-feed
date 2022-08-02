@@ -4,13 +4,13 @@ import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import ReactLoading from 'react-loading'
 
-import { useDeleteCommentByIdMutation, useGetCommentByIdQuery, useUpdateCommentLikesMutation } from '../graphql/generated'
-import { useCurrentUser } from '../hooks/useCurrentUser'
-import { User } from '../hooks/useCurrentUser'
+import { useDeleteCommentByIdMutation, useGetCommentByIdQuery, useUpdateCommentLikesMutation } from '../../graphql/generated'
+import { useCurrentUser } from '../../hooks/useCurrentUser'
+import { User } from '../../hooks/useCurrentUser'
 
-import { Avatar } from './Avatar'
+import { Avatar } from '../Avatar/Avatar'
 
-import { Container, CommentBox, CommentContent } from '../styles/Comment'
+import { Container, CommentBox, CommentContent } from './styles'
 
 interface Comment {
     id: string,

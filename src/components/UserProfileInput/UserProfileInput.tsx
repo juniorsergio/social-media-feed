@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from "react"
-import { useCreateUserMutation, useUpdateUserProfileMutation } from "../graphql/generated"
+import { useCreateUserMutation, useUpdateUserProfileMutation } from "../../graphql/generated"
 
-import { useCurrentUser, User } from "../hooks/useCurrentUser"
-import { Avatar } from "./Avatar"
+import { useCurrentUser, User } from "../../hooks/useCurrentUser"
+import { Avatar } from "../Avatar/Avatar"
 
-import { Container } from "../styles/UserProfileInput"
+import { Container } from './styles'
 
-import closeImg from '../assets/close.svg'
+import closeImg from '../../assets/close.svg'
 const images = ['intj', 'entj', 'intp', 'entp', 'istp', 'estp', 'isfp', 'esfp']
 
 interface UserProfileInputProps {

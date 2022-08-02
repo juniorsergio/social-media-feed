@@ -1,4 +1,4 @@
-import { Container, YinYang } from '../styles/LoadingScreen'
+import { Container, YinYang } from './styles'
 
 export function LoadingScreen(){
     return (     

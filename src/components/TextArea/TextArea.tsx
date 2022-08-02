@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react"
-import { Container } from "../styles/TextArea"
+import { Container } from './styles'
 
 interface TextAreaProps {
     type: string,

@@ -3,15 +3,15 @@ import { Trash } from 'phosphor-react'
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
-import { useCreateCommentMutation, useDeletePostByIdMutation } from '../graphql/generated'
-import { useCurrentUser, User } from '../hooks/useCurrentUser'
+import { useCreateCommentMutation, useDeletePostByIdMutation } from '../../graphql/generated'
+import { useCurrentUser, User } from '../../hooks/useCurrentUser'
+import { useFeed } from '../../hooks/useFeed'
 
-import { Avatar } from './Avatar'
-import { Comment } from './Comment'
-import { TextArea } from './TextArea'
+import { Avatar } from '../Avatar/Avatar'
+import { Comment } from '../Comment/Comment'
+import { TextArea } from '../TextArea/TextArea'
 
-import { Container } from '../styles/Post'
-import { useFeed } from '../hooks/useFeed'
+import { Container } from './styles'
 
 interface Comment {
     id: string

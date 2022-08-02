@@ -2,13 +2,13 @@ import { PencilLine } from 'phosphor-react'
 import { useState } from 'react'
 import ReactModal from 'react-modal'
 
-import { useGetUserByIdQuery } from '../graphql/generated'
-import { useCurrentUser } from '../hooks/useCurrentUser'
+import { useGetUserByIdQuery } from '../../graphql/generated'
+import { useCurrentUser } from '../../hooks/useCurrentUser'
 
-import { Avatar } from './Avatar'
-import { UserProfileInput } from './UserProfileInput'
+import { Avatar } from '../Avatar/Avatar'
+import { UserProfileInput } from '../UserProfileInput/UserProfileInput'
 
-import { Container } from '../styles/Sidebar'
+import { Container } from './styles'
 import ReactLoading from 'react-loading'
 
 const modules = import.meta.glob('../assets/covers/*.svg', { import: 'default', eager: true })

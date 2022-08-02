@@ -1,14 +1,13 @@
-import { Header } from "./components/Header";
-import { Sidebar } from "./components/Sidebar";
-import { UserProfileInput } from "./components/UserProfileInput";
-import { Feed } from "./components/Feed";
+import { Header } from "./components/Header/Header";
+import { Sidebar } from "./components/Sidebar/Sidebar";
+import { UserProfileInput } from "./components/UserProfileInput/UserProfileInput";
+import { Feed } from "./components/Feed/Feed";
+import { LoadingScreen } from "./components/LoadingScreen/LoadingScreen";
 
 import { useFeed } from "./hooks/useFeed";
 import { useCurrentUser } from "./hooks/useCurrentUser";
 
-import { GlobalStyles } from "./styles/global";
-import { Container } from "./styles/App";
-import { LoadingScreen } from "./components/LoadingScreen";
+import { GlobalStyles, Container } from "./styles/global";
 
 export function App() {
 	const { currentUser, isLoadingUser } = useCurrentUser()
