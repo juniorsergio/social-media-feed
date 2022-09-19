@@ -11,7 +11,7 @@ import { UserProfileInput } from '../UserProfileInput/UserProfileInput'
 import { Container } from './styles'
 import ReactLoading from 'react-loading'
 
-const modules = import.meta.glob('../assets/covers/*.svg', { import: 'default', eager: true })
+const modules = import.meta.glob('../../assets/covers/*.svg', { import: 'default', eager: true })
 
 export function Sidebar() {
     const { currentUser } = useCurrentUser()
@@ -34,7 +34,7 @@ export function Sidebar() {
         )
     }
 
-    const path = `../assets/covers/${data.userProfile.avatar}.svg`
+    const path = `../../assets/covers/${data.userProfile.avatar}.svg`
 
     function handleOpenUpdateUserModal(){
         setIsUpdateUserModalOpen(true)
